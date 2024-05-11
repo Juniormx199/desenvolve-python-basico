@@ -1,0 +1,7 @@
+Dissertativa:
+
+1- Ler o número n que queremos multiplicar por 9.
+2- Subtrair 1 de n para obter o primeiro dígito.
+3- Subtrair n de 10 para obter o segundo dígito.
+4- Multiplicar o primeiro dígito por 10 e somar com o segundo dígito.
+5- Imprimir o resultado.
