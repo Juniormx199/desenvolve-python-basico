@@ -4,7 +4,6 @@ lista1 = []
 lista2 = []
 interseccao = []
 
-
 for i in range(20):
     lista1.append(random.randint(0,50))
     lista2.append(random.randint(0,50))
