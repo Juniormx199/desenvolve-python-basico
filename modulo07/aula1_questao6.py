@@ -12,7 +12,6 @@ def encontrar_anagramas(frase, palavra):
 
 frase = input("Digite uma frase: ")
 frase = frase.split()
-
 palavra= input("Digite a palavra objetivo: ")
 
 print(f"Anagramas: {encontrar_anagramas(frase, palavra)}")
