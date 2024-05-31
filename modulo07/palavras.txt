@@ -1,6 +1,6 @@
 Bom
-dia,
+dia
 meu
 nome
 é
-Davi.
+Davi
