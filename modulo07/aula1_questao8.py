@@ -1,4 +1,4 @@
-def tira_pontuacao(cpf):
+def remove_pontuacao(cpf):
     numeros_cpf = ''
     for i in cpf:
         if i in "0123456789":
@@ -21,7 +21,7 @@ def encontra_digitos(cpf):
     return digitos
 
 def verifica_digitos(cpf):
-    cpf = tira_pontuacao(cpf)
+    cpf = remove_pontuacao(cpf)
     if len(cpf) == 11:
         digitos = encontra_digitos(cpf)
         if cpf[-2:] == digitos:
