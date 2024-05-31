@@ -1,20 +1,3 @@
-<<<<<<< HEAD
-def validador_senha(senha):
-    if len(senha) <= 8:
-        return False
-
-    for letra in senha:
-        if letra.isupper() == True:
-            maiuscula = True
-
-# isupper () e islower () e  isdigit
-
-
-
-senha ='junior'
-print(validador_senha(senha))
-=======
-
 def validador_senha(senha):
 
     if len(senha) < 8:
@@ -45,4 +28,4 @@ senha3 = "Senha_fraca"
 print(validador_senha(senha1))
 print(validador_senha(senha2))
 print(validador_senha(senha3))
->>>>>>> 161bc23f071c362b82a5ea4afa4081895450fc7e
+
