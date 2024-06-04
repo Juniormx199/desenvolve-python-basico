@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 computador
 programacao
 tecnologia
@@ -8,3 +9,15 @@ software
 hardware
 rede
 internet
+=======
+Tecnologia
+Programaçao
+Automobilismo
+Engenharia
+Desenvolvimento
+Conhecimento
+Aprendizado
+Inovaçao
+Suporte
+Crescimento
+>>>>>>> 140e69151fe2c9f20f25e338ffe68d45643c6eef
