@@ -1,3 +1,2 @@
 teste,1
-adm,adm
 isa,linda
