@@ -21,15 +21,13 @@ def validar_usuario(nome , senha = ""):
         usuario_txt, senha_txt = linha.strip().split(",")
         if usuario_txt.lower() == nome.lower():
             if senha == "":
-                print("Usuário já existe")
+                print("Usuário já existe \n")
                 return True
             else: 
                 if (senha_txt == senha):
                     return True
                 else:
-                    print("Senha incorreta !!!")
-        else:
-            print("Usuario incorreto !!!")
+                    print("Senha incorreta !!! \n")
 
     return False
 
@@ -39,7 +37,7 @@ def inserir_usuarios(nome, senha):
         linhas = ler_arquivo(arquivo_usuarios)
         linhas.append(f"{nome},{senha}\n")
         escrever_arquivo(arquivo_usuarios , linhas)
-        print("Usuário cadastrado !!!")
+        print("Usuário cadastrado !!! \n")
 
 #Funcao para alterar o usuario : tem duas opcoes = 3 altera a senha / 4 altera o nome (so pode alterar se fornecer usuario e senha atual)
 def alterar_usuario(nome, senha , novo, opcao):
@@ -51,7 +49,7 @@ def alterar_usuario(nome, senha , novo, opcao):
         else:   
             linhas[index]= f"{novo},{senha}\n"
         escrever_arquivo(arquivo_usuarios , linhas)
-        print("Usuario Alterado !!!")
+        print("Usuario Alterado !!! \n")
         return True
     else:
         return False
@@ -63,7 +61,7 @@ def excluir_usuario(nome, senha):
         index = linhas.index(f"{nome},{senha}\n")
         linhas.pop(index)
         escrever_arquivo(arquivo_usuarios , linhas)
-        print("Usuario excluido !!!")
+        print("Usuario excluido !!! \n")
 
 
 
@@ -77,14 +75,14 @@ def menu_login():
             nome = input("Nome: ")
             senha = input("Senha: ")
             if validar_usuario(nome, senha):
-                print("Login efetuado com sucesso!!!")
-                return sub_menu()
+                print("Login efetuado com sucesso!!! \n")
+                return sub_menu(nome)
             else:
-                print("Tente novamente")
+                print("Usuario ou senha incorretos , tente novamente ! \n")
     else:
         return
 
-def sub_menu():
+def sub_menu(usuario):
      while True:
         print("1 - Manutencao usuario")
         print("2 - Manutencao Produtos/Servicos")
@@ -93,20 +91,40 @@ def sub_menu():
         if opcao == '3':
             return
         elif opcao == "1":
-            return menu_usuario()
+            return menu_usuario(usuario)
         
-def menu_usuario():
+def menu_usuario(usuario):
     while True:
+
         print("1 - cadastrar usuario")
         print("2 - alterar senha")
         print("3 - alterar nome")
         print("4 - excluir usuario")
-        print("5 - sair")
+        print("5 - voltar")
+        print("6 - sair")
 
         opcao = input("opcao: ")
-        if opcao == "5": 
+
+        if opcao == "6": 
             return
-        
+    
+        if opcao == "5": 
+            return sub_menu(usuario)
+
+        if opcao == "1":
+            nome = input("Nome: ")
+            senha = input("Senha: ")
+            inserir_usuarios(nome, senha)    
+            
+        if opcao == "2":
+            alterar_usuario(usuario, input("Senha Atual: ") ,input("Nova Senha: "), opcao)
+
+        if opcao == "3":
+            alterar_usuario(usuario, input("Senha Atual: ") ,input("Novo nome: "), opcao)
+
+        if opcao == "4":
+            excluir_usuario(input("Usuario: ") ,input("Senha: "))
+
 
 menu_login()
 
