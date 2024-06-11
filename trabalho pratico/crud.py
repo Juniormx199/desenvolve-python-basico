@@ -32,7 +32,7 @@ def validar_usuario(nome , senha = ""):
     return False
 
 #Funcao para adicionar um novo usuario
-def inserir_usuarios(nome, senha):
+def inserir_usuario(nome, senha):
     if not validar_usuario(nome):
         linhas = ler_arquivo(arquivo_usuarios)
         linhas.append(f"{nome},{senha}\n")
@@ -114,7 +114,7 @@ def menu_usuario(usuario):
         if opcao == "1":
             nome = input("Nome: ")
             senha = input("Senha: ")
-            inserir_usuarios(nome, senha)    
+            inserir_usuario(nome, senha)    
             
         if opcao == "2":
             alterar_usuario(usuario, input("Senha Atual: ") ,input("Nova Senha: "), opcao)
