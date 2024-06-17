@@ -56,9 +56,6 @@ def alterar_usuario(usuarios, nome_usuario, **kwargs):
     return                  
 #alterar_usuario(usuarios,'usuario121111', senha='Paulo Henrique', administrador='paulohenrique@example.com')
 
-def listar_usuarios(usuarios):
-      for usuario in usuarios:
-        print(usuario)
 
 def deletar_usuario(usuarios, nome_usuario):
     for index ,linha in enumerate(usuarios):
@@ -71,6 +68,10 @@ def deletar_usuario(usuarios, nome_usuario):
     print("Usuario não encontrado")
     return        
 #deletar_usuario(usuarios,'usuario1231')
+
+def listar_usuarios(usuarios):
+      for usuario in usuarios:
+        print(usuario)
 
 def login_usuario(usuarios , nome_usuario , senha_usuario):
     for usuario in usuarios:
