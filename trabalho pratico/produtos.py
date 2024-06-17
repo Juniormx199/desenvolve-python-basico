@@ -45,11 +45,11 @@ def criar_produto(produtos, descricao, unidade, preco_custo, preco_venda , estoq
     })
     salvar_produtos(produtos)
     print("produto criado com sucesso!")
-#criar_produto(produtos, 'descricao', 'unidade', 'preco_custo', 'preco_venda' , 'estoque')
+#criar_produto(produtos, 'teste', 'unidade', 'preco_custo', 'preco_venda' , 'estoque')
 
-def alterar_produto(produtos, descricao, **kwargs):
+def alterar_produto(produtos, codigo_descricao, **kwargs):
     for index ,linha in enumerate(produtos):
-        if linha['descricao'] == descricao:
+        if linha['descricao'] == codigo_descricao or linha['codigo'] == codigo_descricao:
             produtos[index].update(kwargs)
             salvar_produtos(produtos)
             print("produto atualizado com sucesso!")
@@ -57,12 +57,11 @@ def alterar_produto(produtos, descricao, **kwargs):
         
     print("produto não encontrado")
     return                  
-#alterar_usuario(usuarios,'usuario121111', senha='Paulo Henrique', administrador='paulohenrique@example.com')
+#alterar_produto(produtos,'descricao',unidade ='UNI',descricao='item')
 
-
-def deletar_produto(produtos, descricao):
+def deletar_produto(produtos, codigo_descricao):
     for index ,linha in enumerate(produtos):
-        if linha['descricao'] == descricao:
+        if linha['descricao'] == codigo_descricao or linha['codigo'] == codigo_descricao:
             del produtos[index]
             salvar_produtos(produtos)
             print("produto removido com sucesso!")
@@ -70,10 +69,17 @@ def deletar_produto(produtos, descricao):
         
     print("produto não encontrado")
     return        
-#deletar_usuario(usuarios,'usuario1231')
+#deletar_produto(produtos,'item')
 
 def listar_produto(produtos):
       for produto in produtos:
         print(produto)
 
 
+def buscar_produto(produtos , codigo_descricao):
+    for produto in produtos:
+        if produto['descricao'] == codigo_descricao or produto['codigo'] == codigo_descricao:
+            print(produto)
+            return
+    return print('Produto não encontrado')
+        

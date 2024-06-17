@@ -1,1 +1,2 @@
-codigo,nome_completo,usuario,senha,administrador
+codigo,nome_completo,usuario,senha,administrador,funcionario
+2,adm,adm,adm,True,False

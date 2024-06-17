@@ -3,7 +3,7 @@ import os
 
 def salvar_usuarios(usuarios):
     with open('usuarios.csv', mode='w' , newline='') as arquivo:
-        nomes_campos = ['codigo', 'nome_completo', 'usuario', 'senha', 'administrador']
+        nomes_campos = ['codigo', 'nome_completo', 'usuario', 'senha', 'administrador','funcionario']
         linhas = csv.DictWriter(arquivo, fieldnames = nomes_campos)
         linhas.writeheader()
         for linha in usuarios:
@@ -26,7 +26,7 @@ def busca_ultimo_codigo(usuarios):
     else:
         return 1
 
-def criar_usuario(usuarios, nome_completo, usuario, senha, administrador):
+def criar_usuario(usuarios, nome_completo, usuario, senha, administrador, funcionario):
     list(usuarios)
     codigo = busca_ultimo_codigo(usuarios)
     for linha in usuarios:
@@ -38,15 +38,16 @@ def criar_usuario(usuarios, nome_completo, usuario, senha, administrador):
         'nome_completo': nome_completo,
         'usuario': usuario,
         'senha': senha,
-        'administrador': administrador
+        'administrador': administrador,
+        'funcionario': funcionario
     })
     salvar_usuarios(usuarios)
     print("Usuário criado com sucesso!")
 #criar_usuario(usuarios, '1', 'usuario', 'senha', 'administrador')
 
-def alterar_usuario(usuarios, nome_usuario, **kwargs):
+def alterar_usuario(usuarios, nome_codigo, **kwargs):
     for index ,linha in enumerate(usuarios):
-        if linha['usuario'] == nome_usuario:
+        if linha['usuario'] == nome_codigo or linha['codigo'] == nome_codigo:
             usuarios[index].update(kwargs)
             salvar_usuarios(usuarios)
             print("Usuário atualizado com sucesso!")
@@ -57,9 +58,9 @@ def alterar_usuario(usuarios, nome_usuario, **kwargs):
 #alterar_usuario(usuarios,'usuario121111', senha='Paulo Henrique', administrador='paulohenrique@example.com')
 
 
-def deletar_usuario(usuarios, nome_usuario):
+def deletar_usuario(usuarios, nome_codigo):
     for index ,linha in enumerate(usuarios):
-        if linha['usuario'] == nome_usuario:
+        if linha['usuario'] == nome_codigo or linha['codigo'] == nome_codigo:
             del usuarios[index]
             salvar_usuarios(usuarios)
             print("Usuário removido com sucesso!")
@@ -73,12 +74,21 @@ def listar_usuarios(usuarios):
       for usuario in usuarios:
         print(usuario)
 
-def login_usuario(usuarios , nome_usuario , senha_usuario):
+def login(usuarios , nome_usuario , senha_usuario):
     for usuario in usuarios:
         if usuario['usuario'] == nome_usuario and usuario['senha'] == senha_usuario:
-            print('Login efetuado com sucesso')
-            return
-    return print('Usuario ou senha incorretos')
-#login_usuario(usuarios , 'usuario123' , 'senha')
+            return True
+    return False
 
-usuarios = carregar_usuarios()
+#validar_usuario(usuarios , 'usuario123' , 'senha')
+
+def validar_usuario_codigo(usuarios , nome_codigo):
+    for usuario in usuarios:
+        if usuario['usuario'] == nome_codigo or usuario['codigo'] == nome_codigo:
+            return True
+    return False
+
+def validar_senha_adm(usuarios ,  senha):
+    for usuario in usuarios:
+        if usuario['senha'] == senha and usuario['administrador'] == 'True':
+            return True
