@@ -2,6 +2,8 @@ import csv
 import pandas as pd
 import os
 
+linha_estilo = lambda: print("-----------------------------------------")
+
 def salvar_usuarios(usuarios):
     with open('usuarios.csv', mode='w' , newline='') as arquivo:
         nomes_campos = ['codigo', 'nome_completo', 'usuario', 'senha', 'administrador','funcionario']
@@ -32,7 +34,9 @@ def criar_usuario(usuarios, nome_completo, usuario, senha, administrador, funcio
     codigo = busca_ultimo_codigo(usuarios)
     for linha in usuarios:
         if linha['usuario'] == usuario:
+            linha_estilo()
             print("usuario ja existe")
+            linha_estilo()
             return
     usuarios.append({
         'codigo': codigo,
@@ -43,54 +47,55 @@ def criar_usuario(usuarios, nome_completo, usuario, senha, administrador, funcio
         'funcionario': funcionario
     })
     salvar_usuarios(usuarios)
+    linha_estilo()
     print("Usuário criado com sucesso!")
-#criar_usuario(usuarios, '1', 'usuario', 'senha', 'administrador')
+    linha_estilo()
 
 def alterar_usuario(usuarios, nome_codigo, **parametros):
     for index ,linha in enumerate(usuarios):
         if linha['usuario'] == nome_codigo or linha['codigo'] == nome_codigo:
             usuarios[index].update(parametros)
             salvar_usuarios(usuarios)
+            linha_estilo()
             print("Usuário atualizado com sucesso!")
+            linha_estilo()
             return
     return                  
-#alterar_usuario(usuarios,'usuario121111', senha='Paulo Henrique', administrador='paulohenrique@example.com')
-
 
 def deletar_usuario(usuarios, nome_codigo):
     for index ,linha in enumerate(usuarios):
         if linha['usuario'] == nome_codigo or linha['codigo'] == nome_codigo:
             del usuarios[index]
             salvar_usuarios(usuarios)
+            linha_estilo()
             print("Usuário removido com sucesso!")
+            linha_estilo()
             return
-        
+    linha_estilo()    
     print("Usuario não encontrado")
+    linha_estilo()
     return        
-#deletar_usuario(usuarios,'usuario1231')
+
 
 def listar_usuarios(usuarios):
+      linha_estilo()
       print("Lista de usuarios")
       print(pd.DataFrame(usuarios))
+      linha_estilo()
 
 
-def login(usuarios , nome_usuario , senha_usuario):
+def login_usuario(usuarios , nome_usuario , senha_usuario):
     for usuario in usuarios:
         if usuario['usuario'] == nome_usuario and usuario['senha'] == senha_usuario:
             return True , usuario
     return False , {}
 
-#validar_usuario(usuarios , 'usuario123' , 'senha')
 
 def validar_usuario_codigo(usuarios , nome_codigo):
     for usuario in usuarios:
         if usuario['usuario'] == nome_codigo or usuario['codigo'] == nome_codigo:
             return True
-        
+    linha_estilo()    
     print("Usuario não encontrado")
+    linha_estilo()
     return False
-
-def validar_senha_adm(usuarios ,  senha):
-    for usuario in usuarios:
-        if usuario['senha'] == senha and usuario['administrador'] == 'True':
-            return True
