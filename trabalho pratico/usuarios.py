@@ -49,6 +49,7 @@ def criar_usuario(usuarios, nome_completo, usuario, senha, administrador, funcio
     salvar_usuarios(usuarios)
     linha_estilo()
     print("Usuário criado com sucesso!")
+    print(f"Codigo do usuario: {codigo}")
     linha_estilo()
 
 def alterar_usuario(usuarios, nome_codigo, **parametros):
@@ -86,7 +87,7 @@ def listar_usuarios(usuarios):
 
 def login_usuario(usuarios , nome_usuario , senha_usuario):
     for usuario in usuarios:
-        if usuario['usuario'] == nome_usuario and usuario['senha'] == senha_usuario:
+        if (usuario['usuario'] == nome_usuario or usuario['codigo'] == nome_usuario ) and usuario['senha'] == senha_usuario:
             return True , usuario
     return False , {}
 

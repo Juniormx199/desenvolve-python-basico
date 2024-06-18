@@ -2,6 +2,8 @@ import csv
 import os
 import pandas as pd
 
+linha_estilo = lambda: print("-----------------------------------------")
+
 def salvar_produtos(produtos):
     with open('produtos.csv', mode='w' , newline='') as arquivo:
         nomes_campos = ['codigo', 'descricao', 'unidade', 'preco_custo', 'preco_venda','estoque']
@@ -20,8 +22,6 @@ def carregar_produtos():
             produtos.append(linha)
     return produtos
 
-produtos = carregar_produtos()
-
 def busca_ultimo_codigo(produtos):
     if len(produtos) > 0:
         codigo = produtos[-1]["codigo"]
@@ -34,7 +34,9 @@ def criar_produto(produtos, descricao, unidade, preco_custo, preco_venda , estoq
     codigo = busca_ultimo_codigo(produtos)
     for linha in produtos:
         if linha['descricao'] == descricao:
+            linha_estilo()
             print("Produto ja existe")
+            linha_estilo()
             return
     produtos.append({
         'codigo': codigo,
@@ -45,42 +47,46 @@ def criar_produto(produtos, descricao, unidade, preco_custo, preco_venda , estoq
         'estoque': estoque
     })
     salvar_produtos(produtos)
+    linha_estilo()
     print("produto criado com sucesso!")
-#criar_produto(produtos, 'teste', 'unidade', 'preco_custo', 'preco_venda' , 'estoque')
+    linha_estilo()
 
 def alterar_produto(produtos, codigo_descricao, **parametros):
     for index ,linha in enumerate(produtos):
         if linha['descricao'] == codigo_descricao or linha['codigo'] == codigo_descricao:
             produtos[index].update(parametros)
             salvar_produtos(produtos)
+            linha_estilo()
             print("produto atualizado com sucesso!")
+            linha_estilo()
             return
-        
+    linha_estilo()    
     print("produto não encontrado")
+    linha_estilo()
     return                  
-#alterar_produto(produtos,'descricao',unidade ='UNI',descricao='item')
 
 def deletar_produto(produtos, codigo_descricao):
     for index ,linha in enumerate(produtos):
         if linha['descricao'] == codigo_descricao or linha['codigo'] == codigo_descricao:
             del produtos[index]
             salvar_produtos(produtos)
+            linha_estilo()
             print("produto removido com sucesso!")
+            linha_estilo()
             return
-        
+    linha_estilo()    
     print("produto não encontrado")
+    linha_estilo()
     return        
-#deletar_produto(produtos,'item')
 
-def listar_produto(produtos):
+def listar_produto(produtos , tipo_ordenacao):
+      linha_estilo()
       print("Lista de produtos")
-      print(pd.DataFrame(produtos))
+      tabela = pd.DataFrame(produtos)
+      print(tabela.sort_values(tipo_ordenacao))
+      linha_estilo()
 
-
-def buscar_produto(produtos , codigo_descricao):
-    for produto in produtos:
-        if produto['descricao'] == codigo_descricao or produto['codigo'] == codigo_descricao:
-            print(produto)
-            return
-    return print('Produto não encontrado')
-        
+def buscar_produto(produtos , descricao):
+    filtro = [item for item in produtos if descricao in item['descricao'].lower()]
+    tabela = pd.DataFrame(filtro)
+    print(tabela)
