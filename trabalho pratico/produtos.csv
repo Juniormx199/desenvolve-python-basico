@@ -1,2 +1,7 @@
 codigo,descricao,unidade,preco_custo,preco_venda,estoque
 1,descricao,unidade,preco_custo,preco_venda,estoque
+2,produto1,uni,10,21,90
+3,produto3,uni,10,10,8
+4,1,1,1,1,1
+5,teste,1,1,1,1
+6,mouse,uni,"12,4","34,99",10

@@ -1,4 +1,5 @@
 import csv
+import pandas as pd
 import os
 
 def salvar_usuarios(usuarios):
@@ -45,15 +46,13 @@ def criar_usuario(usuarios, nome_completo, usuario, senha, administrador, funcio
     print("Usuário criado com sucesso!")
 #criar_usuario(usuarios, '1', 'usuario', 'senha', 'administrador')
 
-def alterar_usuario(usuarios, nome_codigo, **kwargs):
+def alterar_usuario(usuarios, nome_codigo, **parametros):
     for index ,linha in enumerate(usuarios):
         if linha['usuario'] == nome_codigo or linha['codigo'] == nome_codigo:
-            usuarios[index].update(kwargs)
+            usuarios[index].update(parametros)
             salvar_usuarios(usuarios)
             print("Usuário atualizado com sucesso!")
             return
-        
-    print("Usuario não encontrado")
     return                  
 #alterar_usuario(usuarios,'usuario121111', senha='Paulo Henrique', administrador='paulohenrique@example.com')
 
@@ -71,14 +70,15 @@ def deletar_usuario(usuarios, nome_codigo):
 #deletar_usuario(usuarios,'usuario1231')
 
 def listar_usuarios(usuarios):
-      for usuario in usuarios:
-        print(usuario)
+      print("Lista de usuarios")
+      print(pd.DataFrame(usuarios))
+
 
 def login(usuarios , nome_usuario , senha_usuario):
     for usuario in usuarios:
         if usuario['usuario'] == nome_usuario and usuario['senha'] == senha_usuario:
-            return True
-    return False
+            return True , usuario
+    return False , {}
 
 #validar_usuario(usuarios , 'usuario123' , 'senha')
 
@@ -86,6 +86,8 @@ def validar_usuario_codigo(usuarios , nome_codigo):
     for usuario in usuarios:
         if usuario['usuario'] == nome_codigo or usuario['codigo'] == nome_codigo:
             return True
+        
+    print("Usuario não encontrado")
     return False
 
 def validar_senha_adm(usuarios ,  senha):

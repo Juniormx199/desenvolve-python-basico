@@ -1,2 +1,5 @@
 codigo,nome_completo,usuario,senha,administrador,funcionario
-2,adm,adm,adm,True,False
+3,adm,adm,adm,True,False
+7,teste,111,11,False,True
+8,teste,eu,123,True,False
+9,pipi,kiki,123,False,True

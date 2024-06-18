@@ -1,5 +1,6 @@
 import csv
 import os
+import pandas as pd
 
 def salvar_produtos(produtos):
     with open('produtos.csv', mode='w' , newline='') as arquivo:
@@ -47,10 +48,10 @@ def criar_produto(produtos, descricao, unidade, preco_custo, preco_venda , estoq
     print("produto criado com sucesso!")
 #criar_produto(produtos, 'teste', 'unidade', 'preco_custo', 'preco_venda' , 'estoque')
 
-def alterar_produto(produtos, codigo_descricao, **kwargs):
+def alterar_produto(produtos, codigo_descricao, **parametros):
     for index ,linha in enumerate(produtos):
         if linha['descricao'] == codigo_descricao or linha['codigo'] == codigo_descricao:
-            produtos[index].update(kwargs)
+            produtos[index].update(parametros)
             salvar_produtos(produtos)
             print("produto atualizado com sucesso!")
             return
@@ -72,8 +73,8 @@ def deletar_produto(produtos, codigo_descricao):
 #deletar_produto(produtos,'item')
 
 def listar_produto(produtos):
-      for produto in produtos:
-        print(produto)
+      print("Lista de produtos")
+      print(pd.DataFrame(produtos))
 
 
 def buscar_produto(produtos , codigo_descricao):
