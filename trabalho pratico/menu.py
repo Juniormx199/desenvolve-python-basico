@@ -1,3 +1,4 @@
+##Antes de executar o sistema precisa instalar o pandas : digite no cmd pip install pandas
 import usuarios as user
 import produtos as prod
 import os
@@ -15,7 +16,6 @@ def resposta_estilo(resposta):
 def menu_principal():
     #Carrega os arquivos de usuario e produtos 
     usuarios = user.carregar_usuarios()
-    produtos = prod.carregar_produtos()
     clear()
     while True:
         #Mostra as opções do menu principal
@@ -36,14 +36,14 @@ def menu_principal():
             valido , usuario_logado  = user.login_usuario(usuarios, usuario, senha)
             if valido:
                 resposta_estilo('Login efetuado com sucesso!')
-                return sub_menu(usuarios , produtos , usuario_logado)
+                return sub_menu(usuario_logado)
             else:
                 resposta_estilo('Usuário ou senha incorretos , tente novamente!')
         else:
             clear()
             resposta_estilo("Opção inválida , tente novamente!")
         
-def sub_menu(usuarios , produtos , usuario_logado):
+def sub_menu(usuario_logado):
     #sub_menu com as opções de usuarios ou produtos
     while True:
         print('####################################')
@@ -58,19 +58,20 @@ def sub_menu(usuarios , produtos , usuario_logado):
             return
         elif opcao == '1':
             clear()
-            return menu_usuario(usuarios , produtos , usuario_logado)
+            return menu_usuario(usuario_logado)
         elif opcao == '2':
             clear()
-            return menu_produto(produtos , usuarios , usuario_logado)
+            return menu_produto(usuario_logado)
         else:
             clear()
             resposta_estilo('Opção inválida , tente novamente!') 
 ##MENUS PRONTOS
 #------------------------ USUARIO ------------------------------------------
-def menu_usuario(usuarios , produtos , usuario_logado):
+def menu_usuario(usuario_logado):
     #recebe a informação se o usuario logado e adm
     adm = usuario_logado['administrador']
     while True:
+        usuarios = user.carregar_usuarios()
         #Usuario adm pode fazer tudo / usuario funcionario so pode alterar o proprio usuario
         print('####################################')
         print('#      Manutenção de Usuários      #')
@@ -90,7 +91,7 @@ def menu_usuario(usuarios , produtos , usuario_logado):
             return
         if opcao == '5':
             clear()
-            return sub_menu(usuarios , produtos , usuario_logado)        
+            return sub_menu(usuario_logado)        
         if opcao == '1' and adm == 'True':
             clear()
             inputs_incluir_usuario(usuarios)
@@ -164,10 +165,11 @@ def inputs_excluir_usuario(usuarios):
 
 
 #------------------------ PRODUTO ------------------------------------------
-def menu_produto(produtos , usuarios , usuario_logado):
+def menu_produto(usuario_logado):
     #recebe a informação se o usuario logado e adm
     adm = usuario_logado['administrador']
     while True:
+        produtos = prod.carregar_produtos()
         #Usuario adm pode fazer tudo / usuario funcionario so não consegue excluir produto
         print('####################################')
         print('#      Manutenção de Produtos      #')
@@ -187,7 +189,7 @@ def menu_produto(produtos , usuarios , usuario_logado):
             return
         if opcao == '6':
             clear()
-            return sub_menu(usuarios , produtos , usuario_logado)
+            return sub_menu(usuario_logado)
         if opcao == '1':
             clear()
             inputs_incluir_produto(produtos)
