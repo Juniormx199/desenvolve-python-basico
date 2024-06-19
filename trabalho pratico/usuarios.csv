@@ -1,19 +1,2 @@
 codigo,nome_completo,usuario,senha,administrador,funcionario
 1,adm,adm,adm,True,False
-2,teste 2,teste 2,1234,False,True
-3,a,a,a,False,True
-4,asa,sas,sas,False,True
-5,kiki,pianao,senha,False,True
-6,teste de inclusao,inclusao,1,True,False
-7,a,a,a,False,True
-8,qwdq,qwd,dqw,True,False
-9,b,b,b,False,True
-10,as,as,as,False,True
-11,n,n,n,False,True
-12,dd,dd,dd,False,True
-13,fff,fgg,gg,False,True
-14,ll,ll,ll,False,True
-15,ii,ii,ii,False,True
-16,213,3123,3123,False,True
-18,teste12,12312,3123,False,True
-19,kkd,kk,kk,False,True

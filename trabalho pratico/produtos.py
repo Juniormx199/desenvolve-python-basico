@@ -54,7 +54,7 @@ def alterar_produto(produtos, codigo_descricao, **parametros):
         if linha['descricao'] == codigo_descricao or linha['codigo'] == codigo_descricao:
             produtos[index].update(parametros)
             salvar_produtos(produtos)
-            return "produto atualizado com sucesso!"             
+            return "Produto atualizado com sucesso!"             
 
 #Função para excluir um produto
 def deletar_produto(produtos, codigo_descricao):
@@ -62,17 +62,20 @@ def deletar_produto(produtos, codigo_descricao):
         if linha['descricao'] == codigo_descricao or linha['codigo'] == codigo_descricao:
             del produtos[index]
             salvar_produtos(produtos)
-            return "produto removido com sucesso!"
+            return "Produto removido com sucesso!"
 
 #Função para listar os produtos cadastrados
 def listar_produto(produtos , tipo_ordenacao):
-    tabela = pd.DataFrame(produtos)
-    return tabela.sort_values(tipo_ordenacao)
-
+    if len(produtos) > 0: 
+        tabela = pd.DataFrame(produtos)
+        return tabela.sort_values(tipo_ordenacao)
+    else:
+        return 'Nenhum produto cadastrado'
+    
 #Função para buscar os produtos pela descrição
 def buscar_produto(produtos , descricao):
     filtro = [item for item in produtos if descricao in item['descricao'].lower()]
-    if len(filtro) > 0: 
+    if len(filtro) > 1: 
         return pd.DataFrame(filtro)
     else:
         return 'Nenhum produto encontrado com essa descrição!'

@@ -174,8 +174,8 @@ def menu_produto(usuario_logado):
         print('# 2 - Alterar Produto              #')
         if adm == 'True':
             print('# 3 - Excluir Produto              #')
-        print('# 4 - Listar Produto               #')
-        print('# 5 - Buscar Produto               #')
+        print('# 4 - Listar Produtos              #')
+        print('# 5 - Buscar Produtos              #')
         print('# 6 - Voltar                       #')
         print('# 0 - Sair                         #')
         print('####################################')
