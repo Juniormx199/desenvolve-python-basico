@@ -176,9 +176,52 @@ def menu_produto(produtos , usuarios , usuario_logado):
             clear()
             listar_produtos(produtos)
         if opcao== '5':
+            clear()
             descricao = input('Digite a descricao do produto: ')
             clear()
-            prod.buscar_produto(produtos , descricao)
+            resposta_estilo(prod.buscar_produto(produtos , descricao))
+
+def inputs_incluir_produto(produtos):
+    descricao = input("Descrição: ")
+    if prod.validar_existencia_descricao(produtos , descricao):
+        clear()
+        resposta_estilo("Produto ja existe")
+        return
+    unidade = input("Unidade: ")
+    preco_custo = input("Preço de custo: ")
+    preco_venda = input("Preço de venda: ")
+    estoque = input("Quantidade de estoque: ")
+    clear()
+    resposta_estilo(prod.criar_produto(produtos, descricao, unidade, preco_custo, preco_venda, estoque))
+
+def inputs_alterar_produto(produtos):
+    codigo_descricao = input("Digite a descrição ou código do produto a ser alterado: ")
+    if not prod.validar_existencia_descricao(produtos , codigo_descricao):
+        clear()
+        resposta_estilo("Produto não encontrado")
+        return
+    descricao = input("Descrição: ")
+    if prod.validar_existencia_descricao(produtos , descricao):
+        clear()
+        resposta_estilo("Descrição ja existe")
+        return
+    unidade = input("Unidade: ")
+    preco_custo = input("Preço de custo: ")
+    preco_venda = input("Preço de venda: ")
+    estoque = input("Quantidade de estoque: ")
+    clear()
+    resposta_estilo(prod.alterar_produto(produtos, codigo_descricao, descricao=descricao, unidade=unidade, preco_custo=preco_custo, preco_venda=preco_venda, estoque=estoque))
+
+def inputs_excluir_produto(produtos):
+    codigo_descricao = input("Digite a descrição ou código do produto a ser excluído: ")
+    if not prod.validar_existencia_descricao(produtos , codigo_descricao):
+        clear()
+        resposta_estilo("Produto não encontrado")
+        return
+    opcao = input("Realmente deseja exlcuir esse produto (sim/nao): ")
+    clear()
+    if opcao.lower() == 'sim':
+        resposta_estilo(prod.deletar_produto(produtos, codigo_descricao))
 
 def listar_produtos(produtos):
     print("1- ordernar pela descrição")
@@ -186,37 +229,11 @@ def listar_produtos(produtos):
     opcao = input('Opção: ')
     clear()
     if opcao == '1':
-        prod.listar_produto(produtos , 'descricao')
+        resposta_estilo(prod.listar_produto(produtos , 'descricao'))
     elif opcao == '2':
-        prod.listar_produto(produtos , 'preco_venda')
+        resposta_estilo(prod.listar_produto(produtos , 'preco_venda'))
     else:
         print('Opção invalida')
-
-def inputs_incluir_produto(produtos):
-    descricao = input("Descrição: ")
-    unidade = input("Unidade: ")
-    preco_custo = input("Preço de custo: ")
-    preco_venda = input("Preço de venda: ")
-    estoque = input("Quantidade de estoque: ")
-    clear()
-    prod.criar_produto(produtos, descricao, unidade, preco_custo, preco_venda, estoque)
-
-def inputs_alterar_produto(produtos):
-    codigo_descricao = input("Digite a descrição ou código do produto a ser alterado: ")
-    descricao = input("Descrição: ")
-    unidade = input("Unidade: ")
-    preco_custo = input("Preço de custo: ")
-    preco_venda = input("Preço de venda: ")
-    estoque = input("Quantidade de estoque: ")
-    clear()
-    prod.alterar_produto(produtos, codigo_descricao, descricao=descricao, unidade=unidade, preco_custo=preco_custo, preco_venda=preco_venda, estoque=estoque)
-
-def inputs_excluir_produto(produtos):
-    codigo_descricao = input("Digite a descrição ou código do produto a ser excluído: ")
-    opcao = input("Realmente deseja exlcuir esse produto (sim/nao): ")
-    clear()
-    if opcao.lower() == 'sim':
-        prod.deletar_produto(produtos, codigo_descricao)
 
 
 menu_principal()
