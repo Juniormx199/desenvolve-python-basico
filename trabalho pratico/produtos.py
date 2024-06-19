@@ -23,11 +23,7 @@ def carregar_produtos():
     return produtos
 
 def busca_ultimo_codigo(produtos):
-    if len(produtos) > 0:
-        codigo = produtos[-1]["codigo"]
-        return int(codigo) + 1
-    else:
-        return 1
+    return int(produtos[-1]["codigo"]) + 1 if len(produtos) > 0 else 1
 
 def criar_produto(produtos, descricao, unidade, preco_custo, preco_venda , estoque):
     list(produtos)
