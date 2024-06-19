@@ -26,21 +26,22 @@ def menu_principal():
         print('# 0 - Sair                         #')
         print('####################################')
         opcao = input('Opção: ')
+        clear()
         if opcao == '0':
             return
         if opcao == '1':
             usuario = input('Usuário: ')
             senha = input('Senha: ')
-            clear()
             #valida usuario e senha e retorna True ou False , e as informações do usuario logado
             valido , usuario_logado  = user.login_usuario(usuarios, usuario, senha)
             if valido:
+                clear()
                 resposta_estilo('Login efetuado com sucesso!')
                 return sub_menu(usuario_logado)
             else:
+                clear()
                 resposta_estilo('Usuário ou senha incorretos , tente novamente!')
         else:
-            clear()
             resposta_estilo("Opção inválida , tente novamente!")
         
 def sub_menu(usuario_logado):
@@ -86,23 +87,18 @@ def menu_usuario(usuario_logado):
         print('# 0 - Sair                         #')
         print('####################################')
         opcao = input('Opção: ')
+        clear()
         if opcao == '0':
-            clear()
             return
         if opcao == '5':
-            clear()
             return sub_menu(usuario_logado)        
         if opcao == '1' and adm == 'True':
-            clear()
             inputs_incluir_usuario(usuarios)
         if opcao == '2':
-            clear()
             inputs_alterar_usuario(usuarios , adm)
         if opcao == '3' and adm == 'True':
-            clear()
             inputs_excluir_usuario(usuarios)
         if opcao == '4' and adm == 'True':
-            clear()
             resposta_estilo(user.listar_usuarios(usuarios))
 
 #Função que recebe os dados para realizar o cadastro de usuario
@@ -184,26 +180,20 @@ def menu_produto(usuario_logado):
         print('# 0 - Sair                         #')
         print('####################################')
         opcao = input('Opção: ')
+        clear()
         if opcao == '0':
-            clear()
             return
         if opcao == '6':
-            clear()
             return sub_menu(usuario_logado)
         if opcao == '1':
-            clear()
             inputs_incluir_produto(produtos)
         if opcao == '2':
-            clear()
             inputs_alterar_produto(produtos)
         if opcao == '3' and adm == 'True':
-            clear()
             inputs_excluir_produto(produtos)    
         if opcao == '4':
-            clear()
             listar_produtos(produtos)
         if opcao== '5':
-            clear()
             descricao = input('Digite a descrição do produto: ')
             clear()
             resposta_estilo(prod.buscar_produto(produtos , descricao))
