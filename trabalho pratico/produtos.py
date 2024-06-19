@@ -2,6 +2,7 @@ import csv
 import os
 import pandas as pd
 
+#Função para salvar um novo arquivo dos produtos
 def salvar_produtos(produtos):
     with open('produtos.csv', mode='w' , newline='') as arquivo:
         nomes_campos = ['codigo', 'descricao', 'unidade', 'preco_custo', 'preco_venda','estoque']
@@ -10,6 +11,7 @@ def salvar_produtos(produtos):
         for linha in produtos:
             linhas.writerow(linha)
 
+#Função para ler o arquivo produtos
 def carregar_produtos():
     produtos = []
     if not os.path.exists('produtos.csv'):
@@ -20,9 +22,11 @@ def carregar_produtos():
             produtos.append(linha)
     return produtos
 
+#Função para buscar o ultimo codigo cadastrado para incluir um novo produto seguindo a sequencia dos codigos
 def busca_ultimo_codigo(produtos):
     return int(produtos[-1]["codigo"]) + 1 if len(produtos) > 0 else 1
 
+#Função para cadastrar um novo produto
 def criar_produto(produtos, descricao, unidade, preco_custo, preco_venda , estoque):
     list(produtos)
     codigo = busca_ultimo_codigo(produtos)
@@ -37,12 +41,14 @@ def criar_produto(produtos, descricao, unidade, preco_custo, preco_venda , estoq
     salvar_produtos(produtos)
     return f"Produto criado com sucesso! \nCodigo do produto: {codigo}"
 
+#Função para ver se o produto existe , pode usar o descrição ou codigo
 def validar_existencia_descricao(produtos , descricao_codigo):
     for linha in produtos:
         if linha['descricao'] == descricao_codigo or linha['codigo'] == descricao_codigo:
             return True
     return False
 
+#Função para alterar um produto
 def alterar_produto(produtos, codigo_descricao, **parametros):
     for index ,linha in enumerate(produtos):
         if linha['descricao'] == codigo_descricao or linha['codigo'] == codigo_descricao:
@@ -50,6 +56,7 @@ def alterar_produto(produtos, codigo_descricao, **parametros):
             salvar_produtos(produtos)
             return "produto atualizado com sucesso!"             
 
+#Função para excluir um produto
 def deletar_produto(produtos, codigo_descricao):
     for index ,linha in enumerate(produtos):
         if linha['descricao'] == codigo_descricao or linha['codigo'] == codigo_descricao:
@@ -57,10 +64,12 @@ def deletar_produto(produtos, codigo_descricao):
             salvar_produtos(produtos)
             return "produto removido com sucesso!"
 
+#Função para listar os produtos cadastrados
 def listar_produto(produtos , tipo_ordenacao):
     tabela = pd.DataFrame(produtos)
     return tabela.sort_values(tipo_ordenacao)
 
+#Função para buscar os produtos pela descrição
 def buscar_produto(produtos , descricao):
     filtro = [item for item in produtos if descricao in item['descricao'].lower()]
     if len(filtro) > 0: 

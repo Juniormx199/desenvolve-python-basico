@@ -2,17 +2,23 @@ import usuarios as user
 import produtos as prod
 import os
 
+#Função para limpar o console
 clear = lambda: os.system('cls' if os.name == 'nt' else 'clear')
+
+#Função para estilizar a resposta das funções
 def resposta_estilo(resposta):
     print("-----------------------------------------")
     print(resposta)
     print("-----------------------------------------")
+
 #------------------------ MENUS ------------------------------------------
 def menu_principal():
+    #Carrega os arquivos de usuario e produtos 
     usuarios = user.carregar_usuarios()
     produtos = prod.carregar_produtos()
     clear()
     while True:
+        #Mostra as opções do menu principal
         print('####################################')
         print('#         Sistema de Gestão        #')
         print('####################################')
@@ -26,6 +32,7 @@ def menu_principal():
             usuario = input('Usuário: ')
             senha = input('Senha: ')
             clear()
+            #valida usuario e senha e retorna True ou False , e as informações do usuario logado
             valido , usuario_logado  = user.login_usuario(usuarios, usuario, senha)
             if valido:
                 resposta_estilo('Login efetuado com sucesso!')
@@ -37,6 +44,7 @@ def menu_principal():
             resposta_estilo("Opção inválida , tente novamente!")
         
 def sub_menu(usuarios , produtos , usuario_logado):
+    #sub_menu com as opções de usuarios ou produtos
     while True:
         print('####################################')
         print('#          Menu Principal          #')
@@ -60,8 +68,10 @@ def sub_menu(usuarios , produtos , usuario_logado):
 ##MENUS PRONTOS
 #------------------------ USUARIO ------------------------------------------
 def menu_usuario(usuarios , produtos , usuario_logado):
+    #adm recebe a informação se o usuario logado e adm
     adm = usuario_logado['administrador']
     while True:
+        #Usuario adm pode fazer tudo / usuario funcionario so pode alterar o proprio usuario
         print('####################################')
         print('#      Manutenção de Usuários      #')
         print('####################################')
@@ -94,25 +104,32 @@ def menu_usuario(usuarios , produtos , usuario_logado):
             clear()
             resposta_estilo(user.listar_usuarios(usuarios))
 
+#Função que recebe os dados para realizar o cadastro de usuario
 def inputs_incluir_usuario(usuarios):
     nome_completo = input("Nome completo: ")
     usuario = input("Usuário: ")
+    #validação para ver se ja existe o usuario
     if user.validar_existencia_usuario_codigo(usuarios , usuario):
         clear()
         resposta_estilo("Usuário já existe! , tente novamente!")
         return
     senha = input("Senha: ")
+    #Função lambda para validar se o usuario e adm ou nao | se for adm funcionario recebe False , se nao funcionario recebe True
     administrador = (lambda x: x.lower() == 'sim')(input("Usuário e administrador (sim/não): "))
     funcionario = not administrador
     clear()
     resposta_estilo(user.criar_usuario(usuarios, nome_completo, usuario, senha, administrador, funcionario))
 
+#Função que recebe os dados para realizar alteração de usuario
 def inputs_alterar_usuario(usuarios , adm):
     usuario_codigo = input("Digite o nome ou código do usuário a ser alterado: ")
+    #valida se o usuario existe
     if not user.validar_existencia_usuario_codigo(usuarios , usuario_codigo):
         resposta_estilo("Usuário não encontrado , tente novamente!")
         return
+    #Se o usuario logado for ADM ele pode alterar qualquer usuario , so precisa informar o usuario
     if adm == 'False':
+        #Se não for ADM a pessoa precisa informar a senha do usuario a ser alterado , dessa forma ela so consegue alterar o proprio usuario
         senha_atual = input("Digite a senha atual do usuário: ")
         valido , dados_usuario = user.login_usuario(usuarios , usuario_codigo , senha_atual)
         if not valido:
@@ -122,24 +139,30 @@ def inputs_alterar_usuario(usuarios , adm):
     usuario = input("Novo usuário: ")
     senha = input("Nova senha: ")
     if adm == 'True':
+        #Apenas ADM conseguem alterar as permissões
         administrador = (lambda x: x.lower() == 'sim')(input("Usuário e administrador (sim/não): "))
         funcionario = not administrador
         clear()
         resposta_estilo(user.alterar_usuario(usuarios, usuario_codigo=usuario_codigo, nome_completo=nome_completo, usuario=usuario, senha=senha, administrador=administrador, funcionario=funcionario))
     else:
+        #Usuario funcionario so altera : nome completo , usuario e senha
         clear()
         resposta_estilo(user.alterar_usuario(usuarios, usuario_codigo=usuario_codigo, nome_completo=nome_completo, usuario=usuario, senha=senha))
-        
+
+#Função que recebe o usuario a ser excluido        
 def inputs_excluir_usuario(usuarios):
     usuario_codigo = input("Digite o nome ou código do usuário a ser excluído: ")
+    #valida se o usuario existe
     if not user.validar_existencia_usuario_codigo(usuarios , usuario_codigo):
         resposta_estilo("Usuário não encontrado , tente novamente!")
         return
+    #Confirma exclusão
     opcao = input("Realmente deseja excluir esse usuário (sim/não): ")
     clear()
     if opcao.lower() == 'sim':
         resposta_estilo(user.deletar_usuario(usuarios, usuario_codigo))
-##Usuario pronto
+
+
 #------------------------ PRODUTO ------------------------------------------
 def menu_produto(produtos , usuarios , usuario_logado):
     adm = usuario_logado['administrador']
