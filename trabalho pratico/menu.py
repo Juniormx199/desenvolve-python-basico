@@ -28,13 +28,13 @@ def menu_principal():
             clear()
             valido , usuario_logado  = user.login_usuario(usuarios, usuario, senha)
             if valido:
-                resposta_estilo('Login efetuado com sucesso')
+                resposta_estilo('Login efetuado com sucesso!')
                 return sub_menu(usuarios , produtos , usuario_logado)
             else:
                 resposta_estilo('Usuário ou senha incorretos , tente novamente!')
         else:
             clear()
-            resposta_estilo("Opção invalida , tente novamente!")
+            resposta_estilo("Opção inválida , tente novamente!")
         
 def sub_menu(usuarios , produtos , usuario_logado):
     while True:
@@ -56,7 +56,7 @@ def sub_menu(usuarios , produtos , usuario_logado):
             return menu_produto(produtos , usuarios , usuario_logado)
         else:
             clear()
-            resposta_estilo('Opção Invalida , tente novamente!') 
+            resposta_estilo('Opção inválida , tente novamente!') 
 ##MENUS PRONTOS
 #------------------------ USUARIO ------------------------------------------
 def menu_usuario(usuarios , produtos , usuario_logado):
@@ -99,10 +99,10 @@ def inputs_incluir_usuario(usuarios):
     usuario = input("Usuário: ")
     if user.validar_existencia_usuario_codigo(usuarios , usuario):
         clear()
-        resposta_estilo("Usuario ja existe")
+        resposta_estilo("Usuário já existe! , tente novamente!")
         return
     senha = input("Senha: ")
-    administrador = (lambda x: x.lower() == 'sim')(input("Administrador (sim/não): "))
+    administrador = (lambda x: x.lower() == 'sim')(input("Usuário e administrador (sim/não): "))
     funcionario = not administrador
     clear()
     resposta_estilo(user.criar_usuario(usuarios, nome_completo, usuario, senha, administrador, funcionario))
@@ -110,7 +110,7 @@ def inputs_incluir_usuario(usuarios):
 def inputs_alterar_usuario(usuarios , adm):
     usuario_codigo = input("Digite o nome ou código do usuário a ser alterado: ")
     if not user.validar_existencia_usuario_codigo(usuarios , usuario_codigo):
-        resposta_estilo("Usuario não encontrado")
+        resposta_estilo("Usuário não encontrado , tente novamente!")
         return
     if adm == 'False':
         senha_atual = input("Digite a senha atual do usuário: ")
@@ -122,7 +122,7 @@ def inputs_alterar_usuario(usuarios , adm):
     usuario = input("Novo usuário: ")
     senha = input("Nova senha: ")
     if adm == 'True':
-        administrador = (lambda x: x.lower() == 'sim')(input("Administrador (sim/não): "))
+        administrador = (lambda x: x.lower() == 'sim')(input("Usuário e administrador (sim/não): "))
         funcionario = not administrador
         clear()
         resposta_estilo(user.alterar_usuario(usuarios, usuario_codigo=usuario_codigo, nome_completo=nome_completo, usuario=usuario, senha=senha, administrador=administrador, funcionario=funcionario))
@@ -133,9 +133,9 @@ def inputs_alterar_usuario(usuarios , adm):
 def inputs_excluir_usuario(usuarios):
     usuario_codigo = input("Digite o nome ou código do usuário a ser excluído: ")
     if not user.validar_existencia_usuario_codigo(usuarios , usuario_codigo):
-        resposta_estilo("Usuario não encontrado")
+        resposta_estilo("Usuário não encontrado , tente novamente!")
         return
-    opcao = input("Realmente deseja exlcuir esse usuario (sim/nao): ")
+    opcao = input("Realmente deseja excluir esse usuário (sim/não): ")
     clear()
     if opcao.lower() == 'sim':
         resposta_estilo(user.deletar_usuario(usuarios, usuario_codigo))
@@ -177,7 +177,7 @@ def menu_produto(produtos , usuarios , usuario_logado):
             listar_produtos(produtos)
         if opcao== '5':
             clear()
-            descricao = input('Digite a descricao do produto: ')
+            descricao = input('Digite a descrição do produto: ')
             clear()
             resposta_estilo(prod.buscar_produto(produtos , descricao))
 
@@ -185,7 +185,7 @@ def inputs_incluir_produto(produtos):
     descricao = input("Descrição: ")
     if prod.validar_existencia_descricao(produtos , descricao):
         clear()
-        resposta_estilo("Produto ja existe")
+        resposta_estilo("Produto já existe , tente novamente!")
         return
     unidade = input("Unidade: ")
     preco_custo = input("Preço de custo: ")
@@ -198,12 +198,12 @@ def inputs_alterar_produto(produtos):
     codigo_descricao = input("Digite a descrição ou código do produto a ser alterado: ")
     if not prod.validar_existencia_descricao(produtos , codigo_descricao):
         clear()
-        resposta_estilo("Produto não encontrado")
+        resposta_estilo("Produto não encontrado , tente novamente!")
         return
     descricao = input("Descrição: ")
     if prod.validar_existencia_descricao(produtos , descricao):
         clear()
-        resposta_estilo("Descrição ja existe")
+        resposta_estilo("Descrição já existe!")
         return
     unidade = input("Unidade: ")
     preco_custo = input("Preço de custo: ")
@@ -216,9 +216,9 @@ def inputs_excluir_produto(produtos):
     codigo_descricao = input("Digite a descrição ou código do produto a ser excluído: ")
     if not prod.validar_existencia_descricao(produtos , codigo_descricao):
         clear()
-        resposta_estilo("Produto não encontrado")
+        resposta_estilo("Produto não encontrado , tente novamente!")
         return
-    opcao = input("Realmente deseja exlcuir esse produto (sim/nao): ")
+    opcao = input("Realmente deseja excluir esse produto (sim/não): ")
     clear()
     if opcao.lower() == 'sim':
         resposta_estilo(prod.deletar_produto(produtos, codigo_descricao))
