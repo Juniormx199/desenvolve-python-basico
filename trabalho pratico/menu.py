@@ -68,7 +68,7 @@ def sub_menu(usuarios , produtos , usuario_logado):
 ##MENUS PRONTOS
 #------------------------ USUARIO ------------------------------------------
 def menu_usuario(usuarios , produtos , usuario_logado):
-    #adm recebe a informação se o usuario logado e adm
+    #recebe a informação se o usuario logado e adm
     adm = usuario_logado['administrador']
     while True:
         #Usuario adm pode fazer tudo / usuario funcionario so pode alterar o proprio usuario
@@ -165,8 +165,10 @@ def inputs_excluir_usuario(usuarios):
 
 #------------------------ PRODUTO ------------------------------------------
 def menu_produto(produtos , usuarios , usuario_logado):
+    #recebe a informação se o usuario logado e adm
     adm = usuario_logado['administrador']
     while True:
+        #Usuario adm pode fazer tudo / usuario funcionario so não consegue excluir produto
         print('####################################')
         print('#      Manutenção de Produtos      #')
         print('####################################')
@@ -204,8 +206,10 @@ def menu_produto(produtos , usuarios , usuario_logado):
             clear()
             resposta_estilo(prod.buscar_produto(produtos , descricao))
 
+#Função que recebe os dados do produto para realizar o cadastro
 def inputs_incluir_produto(produtos):
     descricao = input("Descrição: ")
+    #Valida descrição
     if prod.validar_existencia_descricao(produtos , descricao):
         clear()
         resposta_estilo("Produto já existe , tente novamente!")
@@ -217,13 +221,16 @@ def inputs_incluir_produto(produtos):
     clear()
     resposta_estilo(prod.criar_produto(produtos, descricao, unidade, preco_custo, preco_venda, estoque))
 
+#Função que recebe os dados para alterar o produto
 def inputs_alterar_produto(produtos):
     codigo_descricao = input("Digite a descrição ou código do produto a ser alterado: ")
+    #valida se o produto existe
     if not prod.validar_existencia_descricao(produtos , codigo_descricao):
         clear()
         resposta_estilo("Produto não encontrado , tente novamente!")
         return
     descricao = input("Descrição: ")
+    #validação para ver se a descrição ja existe
     if prod.validar_existencia_descricao(produtos , descricao):
         clear()
         resposta_estilo("Descrição já existe!")
@@ -235,18 +242,23 @@ def inputs_alterar_produto(produtos):
     clear()
     resposta_estilo(prod.alterar_produto(produtos, codigo_descricao, descricao=descricao, unidade=unidade, preco_custo=preco_custo, preco_venda=preco_venda, estoque=estoque))
 
+#Função que recebe o produto a ser excluido
 def inputs_excluir_produto(produtos):
     codigo_descricao = input("Digite a descrição ou código do produto a ser excluído: ")
+    #valida se o produto existe
     if not prod.validar_existencia_descricao(produtos , codigo_descricao):
         clear()
         resposta_estilo("Produto não encontrado , tente novamente!")
         return
+    #confirma exclusão
     opcao = input("Realmente deseja excluir esse produto (sim/não): ")
     clear()
     if opcao.lower() == 'sim':
         resposta_estilo(prod.deletar_produto(produtos, codigo_descricao))
 
+#Função para listar os produtos cadastrados
 def listar_produtos(produtos):
+    # tem duas opções de ordenação
     print("1- ordernar pela descrição")
     print("2- ordernar pelo preço venda")
     opcao = input('Opção: ')
