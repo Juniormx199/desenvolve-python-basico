@@ -12,6 +12,9 @@ def resposta_estilo(resposta):
     print(resposta)
     print("-----------------------------------------")
 
+#USUARIO PARA ENTRAR NO SISTEMA
+#USUARIO: adm
+#SENHA: adm
 #------------------------ MENUS ------------------------------------------
 def menu_principal():
     #Carrega os arquivos de usuario e produtos 
