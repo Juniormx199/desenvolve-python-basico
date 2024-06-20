@@ -1,2 +1,8 @@
 codigo,nome_completo,usuario,senha,administrador,funcionario
 1,adm,adm,adm,True,False
+2,Augusto resende,augusto,1415,False,True
+3,rafael silva,rafael,1234,False,True
+4,paulo henrique,paulo,658689,True,False
+5,willian soares,willian,5743,False,True
+6,matheus henrique,matheus,0011,True,False
+7,pablo felipe,pablo,4532,False,True

@@ -39,7 +39,7 @@ def criar_usuario(usuarios, nome_completo, usuario, senha, administrador, funcio
         'funcionario': funcionario
     })
     salvar_usuarios(usuarios)
-    return f"Usuário criado com sucesso! \nCodigo do usuario: {codigo}"
+    return f"Usuário criado com sucesso!\nCodigo do usuario: {codigo}"
 
 #Funçãpo para alterar um usuario
 def alterar_usuario(usuarios, usuario_codigo, **parametros):

@@ -1,1 +1,7 @@
 codigo,descricao,unidade,preco_custo,preco_venda,estoque
+1,processador ryzen 7 5700x,uni,"750,90","1200,50",5
+2,Mouse sem fio,uni,30,"59,90",15
+3,impressora hp,uni,"259,90","430,99",2
+4,placa mae am4 b550m-plus,uni,"654,00","890,90",3
+5,memoria ram 8gb ddr4,uni,"98,00","140,99",5
+6,placa de video rtx 4060 ti 8gb,uni,"1690,00","2100,99",2

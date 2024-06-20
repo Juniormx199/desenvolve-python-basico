@@ -63,19 +63,26 @@ def deletar_produto(produtos, codigo_descricao):
             del produtos[index]
             salvar_produtos(produtos)
             return "Produto removido com sucesso!"
+        
+def converter_preco(preco_str):
+    return float(preco_str.replace(',', '.'))        
 
 #Função para listar os produtos cadastrados
 def listar_produto(produtos , tipo_ordenacao):
     if len(produtos) > 0: 
-        tabela = pd.DataFrame(produtos)
-        return tabela.sort_values(tipo_ordenacao)
+        if tipo_ordenacao == 'preco_venda':
+            produtos_ordenados  = sorted(produtos, key=lambda x: converter_preco(x[tipo_ordenacao]))
+        else:
+            produtos_ordenados  = sorted(produtos, key=lambda x: x[tipo_ordenacao])  
+        tabela = pd.DataFrame(produtos_ordenados)
+        return tabela
     else:
         return 'Nenhum produto cadastrado'
     
 #Função para buscar os produtos pela descrição
 def buscar_produto(produtos , descricao):
     filtro = [item for item in produtos if descricao in item['descricao'].lower()]
-    if len(filtro) > 1: 
+    if len(filtro) > 0: 
         return pd.DataFrame(filtro)
     else:
         return 'Nenhum produto encontrado com essa descrição!'
